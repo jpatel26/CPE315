@@ -4,4 +4,8 @@ Starter code for Matrix Addition Pipelining lab
 
 Please add your names and GitHub account names here.
 
+Jasmine Patel : jpatel26
+Daniel Dohnalek
+
+
 :octocat:

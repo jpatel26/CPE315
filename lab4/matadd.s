@@ -30,13 +30,7 @@
 
 matadd:
    push {r0, r1, r2, r3, r4, r5, r6,r7, r8, r9, r10, r11, r12, lr} /* push registers to stack */ 
-   push {r0, r1, r2}
-   ldr r1, [sp, #68] /* load width into r1 */
-   push {r1}         /* save width */
-   push {r3}         /* save height */
-   pop {r3}          /* restore height into r3 */
-   pop {r4}          /* restore width into r4 */
-   pop {r0, r1, r2}  /* restore C, A, B */
+   ldr r4, [sp, #56] /* load width into r1 */
    lsl r3, #2       /* multiply height by 4 */
    lsl r4, #2       /* multiply width by 4 */
 row_loop:
@@ -46,7 +40,7 @@ row_loop:
    mov r8, r4       /* reset width counter, get ready to iter new row columns */
 column_loop:
    cmp r8, #0       /* compare width with 0, If <= 0, end */
-   ble end_column_loop
+   ble row_loop
    sub r8, r8, #4   /* decrement width by 4 */
 
    ldr r5, [r1, r3] /* load address of A[height] into r5 */
@@ -59,10 +53,6 @@ column_loop:
 
    b column_loop    /* loop again (back to guard) */
 
-end_column_loop:
-   b row_loop
 end_row_loop:
-
-endif:
    pop {r0, r1, r2, r3, r4, r5, r6,r7, r8, r9, r10, r11, r12, pc} /* restore registers */
 
